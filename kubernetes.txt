@@ -1,0 +1,166 @@
+PS F:\sam\kubernetes> kubectl apply -f pod.yaml
+pod/demo created
+PS F:\sam\kubernetes> kubectl get pods
+NAME   READY   STATUS              RESTARTS   AGE
+demo   0/1     RunContainerError   0          26s
+PS F:\sam\kubernetes> kubectl logs demo
+PS F:\sam\kubernetes> kubectl delete -f pod.yaml
+pod "demo" deleted
+PS F:\sam\kubernetes> 
+PS F:\sam\kubernetes> kubectl apply -f bb.yaml
+deployment.apps/bb-demo created
+service/bb-entrypoint created
+PS F:\sam\kubernetes> kubectl get deployments
+NAME      READY   UP-TO-DATE   AVAILABLE   AGE
+bb-demo   0/1     1            0           16s
+PS F:\sam\kubernetes> kubectl get services
+NAME            TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+bb-entrypoint   NodePort    10.109.175.241   <none>        3000:30001/TCP   32s
+kubernetes      ClusterIP   10.96.0.1        <none>        443/TCP          14m
+PS F:\sam\kubernetes> kubectl delete -f bb.yaml
+deployment.apps "bb-demo" deleted
+service "bb-entrypoint" deleted
+PS F:\sam> cd kubernetes
+PS F:\sam\kubernetes> docker swarm init
+
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-2qsp7s3j8sn3psokoff0wt9nio7l6srgufkq1rayip6yyy8ctk-dlwe54b9unttni404qh72h074 192.168.65.3:2377
+
+To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+
+PS F:\sam\kubernetes> docker swarm join-token manager
+To add a manager to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-2qsp7s3j8sn3psokoff0wt9nio7l6srgufkq1rayip6yyy8ctk-1otqs8bwig6l9rr1jzdv0c6yi 192.168.65.3:2377
+
+PS F:\sam\kubernetes> docker swarm join --token SWMTKN-1-2qsp7s3j8sn3psokoff0wt9nio7l6srgufkq1rayip6yyy8ctk-1otqs8bwig6l9rr1jzdv0c6yi 192.168.65.3:2377        
+Error response from daemon: This node is already part of a swarm. Use "docker swarm leave" to leave this swarm and join another one.
+PS F:\sam\kubernetes> docker service create --name demo alpine:3.5 ping 8.8.8.8
+54u8rkzuejf0ujtr26j3y11i2
+overall progress: 1 out of 1 tasks
+1/1: running   [==================================================>]
+verify: Service converged
+PS F:\sam\kubernetes> docker service ps demo
+ID             NAME      IMAGE        NODE             DESIRED STATE   CURRENT STATE                ERROR     PORTS
+urcjft8o4rwn   demo.1    alpine:3.5   docker-desktop   Running         Running about a minute ago
+PS F:\sam\kubernetes> docker service logs demo
+demo.1.urcjft8o4rwn@docker-desktop    | PING 8.8.8.8 (8.8.8.8): 56 data bytes
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=0 ttl=37 time=193.169 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=1 ttl=37 time=21.323 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=2 ttl=37 time=20.593 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=3 ttl=37 time=20.971 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=4 ttl=37 time=26.550 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=5 ttl=37 time=20.940 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=6 ttl=37 time=24.762 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=7 ttl=37 time=19.875 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=8 ttl=37 time=21.351 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=9 ttl=37 time=24.895 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=10 ttl=37 time=22.109 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=11 ttl=37 time=20.977 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=12 ttl=37 time=19.539 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=13 ttl=37 time=24.299 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=14 ttl=37 time=19.162 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=15 ttl=37 time=19.597 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=16 ttl=37 time=21.847 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=17 ttl=37 time=30.848 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=18 ttl=37 time=24.392 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=19 ttl=37 time=20.460 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=20 ttl=37 time=19.953 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=21 ttl=37 time=22.092 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=22 ttl=37 time=29.314 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=23 ttl=37 time=21.195 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=24 ttl=37 time=20.681 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=25 ttl=37 time=22.077 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=26 ttl=37 time=33.527 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=27 ttl=37 time=21.206 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=28 ttl=37 time=21.022 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=29 ttl=37 time=982.646 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=30 ttl=37 time=20.935 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=31 ttl=37 time=21.223 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=32 ttl=37 time=20.613 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=33 ttl=37 time=20.565 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=34 ttl=37 time=21.295 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=35 ttl=37 time=20.313 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=36 ttl=37 time=20.520 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=37 ttl=37 time=29.940 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=38 ttl=37 time=20.585 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=39 ttl=37 time=21.089 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=40 ttl=37 time=21.802 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=41 ttl=37 time=20.347 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=42 ttl=37 time=30.013 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=43 ttl=37 time=20.030 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=44 ttl=37 time=19.724 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=45 ttl=37 time=30.981 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=46 ttl=37 time=21.783 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=47 ttl=37 time=19.681 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=48 ttl=37 time=21.800 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=49 ttl=37 time=21.912 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=50 ttl=37 time=20.822 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=51 ttl=37 time=20.625 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=52 ttl=37 time=20.034 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=53 ttl=37 time=26.245 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=54 ttl=37 time=32.427 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=55 ttl=37 time=21.842 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=56 ttl=37 time=20.037 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=57 ttl=37 time=22.423 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=58 ttl=37 time=20.567 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=59 ttl=37 time=20.754 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=60 ttl=37 time=20.571 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=61 ttl=37 time=20.375 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=62 ttl=37 time=21.711 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=63 ttl=37 time=21.277 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=64 ttl=37 time=32.048 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=65 ttl=37 time=20.131 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=66 ttl=37 time=19.551 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=67 ttl=37 time=20.527 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=68 ttl=37 time=20.585 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=69 ttl=37 time=21.008 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=70 ttl=37 time=22.604 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=71 ttl=37 time=20.261 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=72 ttl=37 time=24.797 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=73 ttl=37 time=39.671 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=74 ttl=37 time=20.619 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=75 ttl=37 time=20.830 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=76 ttl=37 time=21.225 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=77 ttl=37 time=24.380 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=78 ttl=37 time=35.909 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=79 ttl=37 time=21.783 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=80 ttl=37 time=21.008 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=81 ttl=37 time=21.046 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=82 ttl=37 time=22.634 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=83 ttl=37 time=20.735 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=84 ttl=37 time=21.486 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=85 ttl=37 time=21.715 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=86 ttl=37 time=21.698 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=87 ttl=37 time=21.045 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=88 ttl=37 time=22.809 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=89 ttl=37 time=21.026 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=90 ttl=37 time=20.048 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=91 ttl=37 time=20.094 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=92 ttl=37 time=20.201 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=94 ttl=37 time=20.433 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=95 ttl=37 time=20.577 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=96 ttl=37 time=20.979 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=97 ttl=37 time=21.068 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=98 ttl=37 time=62.220 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=99 ttl=37 time=20.195 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=100 ttl=37 time=36.016 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=101 ttl=37 time=23.878 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=102 ttl=37 time=20.639 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=103 ttl=37 time=21.572 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=104 ttl=37 time=29.757 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=105 ttl=37 time=30.243 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=106 ttl=37 time=29.230 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=107 ttl=37 time=20.548 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=108 ttl=37 time=20.143 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=109 ttl=37 time=30.442 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=110 ttl=37 time=23.844 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=111 ttl=37 time=84.125 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=112 ttl=37 time=19.467 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=113 ttl=37 time=32.058 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=114 ttl=37 time=20.004 ms
+demo.1.urcjft8o4rwn@docker-desktop    | 64 bytes from 8.8.8.8: seq=115 ttl=37 time=19.047 ms
+PS F:\sam\kubernetes> docker service rm demo
+demo
+PS F:\sam\kubernetes>
