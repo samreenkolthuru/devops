@@ -1,0 +1,447 @@
+nafeesa8642@Nafee:~$ docker -v
+Docker version 20.10.11, build dea9396
+nafeesa8642@Nafee:~$ docker images
+REPOSITORY                           TAG                                                     IMAGE ID       CREATED         SIZE
+86421210/getting-started             latest                                                  a9f9e8935d6f   8 minutes ago   28.8MB
+86421210/getting-started             <none>                                                  5d06f6cf4522   9 days ago      454MB
+docker/desktop-kubernetes            kubernetes-v1.22.4-cni-v0.8.5-critools-v1.17.0-debian   493a106d3678   7 weeks ago     294MB
+k8s.gcr.io/kube-apiserver            v1.22.4                                                 8a5cc299272d   7 weeks ago     128MB
+k8s.gcr.io/kube-scheduler            v1.22.4                                                 721ba97f54a6   7 weeks ago     52.7MB
+k8s.gcr.io/kube-controller-manager   v1.22.4                                                 0ce02f92d3e4   7 weeks ago     122MB
+k8s.gcr.io/kube-proxy                v1.22.4                                                 edeff87e4802   7 weeks ago     104MB
+k8s.gcr.io/etcd                      3.5.0-0                                                 004811815584   6 months ago    295MB
+k8s.gcr.io/coredns/coredns           v1.8.4                                                  8d147537fb7d   7 months ago    47.6MB
+docker/desktop-vpnkit-controller     v2.0                                                    8c2c38aa676e   8 months ago    21MB
+docker/desktop-storage-provisioner   v2.0                                                    99f89471f470   8 months ago    41.9MB
+k8s.gcr.io/pause                     3.5                                                     ed210e3e4a5b   9 months ago    683kB
+nafeesa8642@Nafee:~$ docker run -dt redis
+Unable to find image 'redis:latest' locally
+
+
+latest: Pulling from library/redis
+a2abf6c4d29d: Pull complete
+c7a4e4382001: Pull complete
+4044b9ba67c9: Pull complete
+c8388a79482f: Pull complete
+413c8bb60be2: Pull complete
+1abfd3011519: Pull complete
+Digest: sha256:db485f2e245b5b3329fdc7eff4eb00f913e09d8feb9ca720788059fdc2ed8339
+Status: Downloaded newer image for redis:latest
+f16118e686ec88972c20fdec0c1a56a65fb95b63410ae0f092e0aacf28d68abb
+nafeesa8642@Nafee:~$
+nafeesa8642@Nafee:~$
+nafeesa8642@Nafee:~$ docker image history redis
+IMAGE          CREATED       CREATED BY                                      SIZE      COMMENT
+7614ae9453d1   2 weeks ago   /bin/sh -c #(nop)  CMD ["redis-server"]         0B
+<missing>      2 weeks ago   /bin/sh -c #(nop)  EXPOSE 6379                  0B
+<missing>      2 weeks ago   /bin/sh -c #(nop)  ENTRYPOINT ["docker-entry…   0B
+<missing>      2 weeks ago   /bin/sh -c #(nop) COPY file:df205a0ef6e6df89…   374B
+<missing>      2 weeks ago   /bin/sh -c #(nop) WORKDIR /data                 0B
+<missing>      2 weeks ago   /bin/sh -c #(nop)  VOLUME [/data]               0B
+<missing>      2 weeks ago   /bin/sh -c mkdir /data && chown redis:redis …   0B
+<missing>      2 weeks ago   /bin/sh -c set -eux;   savedAptMark="$(apt-m…   27.8MB
+<missing>      2 weeks ago   /bin/sh -c #(nop)  ENV REDIS_DOWNLOAD_SHA=5b…   0B
+<missing>      2 weeks ago   /bin/sh -c #(nop)  ENV REDIS_DOWNLOAD_URL=ht…   0B
+<missing>      2 weeks ago   /bin/sh -c #(nop)  ENV REDIS_VERSION=6.2.6      0B
+<missing>      2 weeks ago   /bin/sh -c set -eux;  savedAptMark="$(apt-ma…   4.24MB
+<missing>      2 weeks ago   /bin/sh -c #(nop)  ENV GOSU_VERSION=1.12        0B
+<missing>      2 weeks ago   /bin/sh -c groupadd -r -g 999 redis && usera…   329kB
+<missing>      2 weeks ago   /bin/sh -c #(nop)  CMD ["bash"]                 0B
+<missing>      2 weeks ago   /bin/sh -c #(nop) ADD file:09675d11695f65c55…   80.4MB
+nafeesa8642@Nafee:~$ docker image history -q redis
+7614ae9453d1
+<missing>
+<missing>
+<missing>
+<missing>
+<missing>
+<missing>
+<missing>
+<missing>
+<missing>
+<missing>
+<missing>
+<missing>
+<missing>
+<missing>
+<missing>
+
+PS C:\Users\hp\Downloads\getting-started-master> cd app
+PS C:\Users\hp\Downloads\getting-started-master\app> docker build -t 86421210/getting-started .       
+[+] Building 340.2s (16/16) FINISHED
+ => [internal] load build definition from Dockerfile                                                                                                                 1.6s 
+ => => transferring dockerfile: 214B                                                                                                                                 0.4s 
+ => [internal] load .dockerignore                                                                                                                                    2.0s 
+ => => transferring context: 2B                                                                                                                                      0.2s 
+ => resolve image config for docker.io/docker/dockerfile:1                                                                                                          40.4s 
+ => [auth] docker/dockerfile:pull token for registry-1.docker.io                                                                                                     0.0s 
+ => CACHED docker-image://docker.io/docker/dockerfile:1@sha256:42399d4635eddd7a9b8a24be879d2f9a930d0ed040a61324cfdf59ef1357b3b2                                      0.0s 
+ => [internal] load build definition from Dockerfile                                                                                                                 0.0s 
+ => [internal] load .dockerignore                                                                                                                                    0.0s 
+ => [internal] load metadata for docker.io/library/node:12-alpine                                                                                                    5.9s 
+ => [auth] library/node:pull token for registry-1.docker.io                                                                                                          0.0s 
+ => CACHED [1/5] FROM docker.io/library/node:12-alpine@sha256:05d61228b85c54b5527e74afc54153eb3572aae005948fb068a0f4ebe01f7c1e                                       0.0s 
+ => [internal] load build context                                                                                                                                  146.3s 
+ => => transferring context: 58.79MB                                                                                                                               145.2s 
+ => [2/5] RUN apk add --no-cache python2 g++ make                                                                                                                   81.1s 
+ => [3/5] WORKDIR /app                                                                                                                                               5.6s 
+ => [4/5] COPY . .                                                                                                                                                   8.6s 
+ => [5/5] RUN yarn install --production                                                                                                                            118.9s 
+ => exporting to image                                                                                                                                              11.4s 
+ => => exporting layers                                                                                                                                             10.9s 
+ => => writing image sha256:6828cf48c98c3955d090b11509cccb2bc4ca23c685b108d49cc38e6a964206fb                                                                         0.1s 
+ => => naming to docker.io/86421210/getting-started                                                                                                                  0.1s 
+
+Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
+PS C:\Users\hp\Downloads\getting-started-master\app> docker run -dp 3000:3000 getting-started
+Unable to find image 'getting-started:latest' locally
+docker: Error response from daemon: pull access denied for getting-started, repository does not exist or may require 'docker login': denied: requested access to the resource is denied.
+See 'docker run --help'.
+PS C:\Users\hp\Downloads\getting-started-master\app> docker run -dp 3000:3000 86421210/getting-started
+fdb741af260d0fab79576d90780ef274252968cb6cab0edec6ec01ce9895f320
+PS C:\Users\hp\Downloads\getting-started-master\app> docker ps
+CONTAINER ID   IMAGE                      COMMAND                  CREATED          STATUS          PORTS                    NAMES      
+fdb741af260d   86421210/getting-started   "docker-entrypoint.s…"   13 minutes ago   Up 13 minutes   0.0.0.0:3000->3000/tcp   busy_shamir
+PS C:\Users\hp\Downloads\getting-started-master\app> ^C
+PS C:\Users\hp\Downloads\getting-started-master\app> docker stop fdb741af260d
+fdb741af260d
+PS C:\Users\hp\Downloads\getting-started-master\app> docker rm fdb741af260d
+fdb741af260d
+PS C:\Users\hp\Downloads\getting-started-master\app> 
+PS C:\Users\hp\Downloads\getting-started-master\app> docker run -d ubuntu bash -c "shuf -i 1-10000 -n 1 -o /data.txt && tail -f /dev/null"
+Unable to find image 'ubuntu:latest' locally
+latest: Pulling from library/ubuntu
+ea362f368469: Pull complete
+Digest: sha256:b5a61709a9a44284d88fb12e5c48db0409cfad5b69d4ff8224077c57302df9cf
+Status: Downloaded newer image for ubuntu:latest
+0e134a9662c5cf499e85fbaf3d94008e54f1155261b0e95f13d469280106aa24
+PS C:\Users\hp\Downloads\getting-started-master\app> docker ps 
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS     NAMES
+0e134a9662c5   ubuntu    "bash -c 'shuf -i 1-…"   25 seconds ago   Up 16 seconds             stupefied_tereshkova
+PS C:\Users\hp\Downloads\getting-started-master\app> docker exec 0e134a9662c5 cat /data.txt
+5182
+PS C:\Users\hp\Downloads\getting-started-master\app> docker run -it ubuntu ls
+bin   dev  home  lib32  libx32  mnt  proc  run   srv  tmp  var
+boot  etc  lib   lib64  media   opt  root  sbin  sys  usr
+0e134a9662c5
+todo-db
+PS C:\Users\hp\Downloads\getting-started-master\app> docker run -dp 3000:3000 -v todo-db:/etc/todos getting-started
+Unable to find image 'getting-started:latest' locally
+docker: Error response from daemon: pull access denied for getting-started, repository does not exist or may require 'docker login': denied: requested access to the resource is denied.
+See 'docker run --help'.
+PS C:\Users\hp\Downloads\getting-started-master\app> docker run -dp 3000:3000 -v todo-db:/etc/todos getting-started
+Unable to find image 'getting-started:latest' locally
+docker: Error response from daemon: pull access denied for getting-started, repository does not exist or may require 'docker login': denied: requested access to the resource is denied.
+See 'docker run --help'.
+PS C:\Users\hp\Downloads\getting-started-master\app> docker volume create todo-db
+todo-db
+Unable to find image 'getting-started:latest' locally
+docker: Error response from daemon: pull access denied for getting-started, repository does not exist or may require 'docker login': denied: requested access to the resource is denied.
+See 'docker run --help'.
+PS C:\Users\hp\Downloads\getting-started-master\app> docker build -t getting-started .
+[+] Building 59.4s (16/16) FINISHED
+ => [internal] load build definition from Dockerfile                                                                                                                 4.7s 
+ => => transferring dockerfile: 32B                                                                                                                                  0.7s 
+ => [internal] load .dockerignore                                                                                                                                    4.1s 
+ => resolve image config for docker.io/docker/dockerfile:1                                                                                                           9.6s 
+ => [internal] load .dockerignore                                                                                                                                    0.0s 
+ => [internal] load build definition from Dockerfile                                                                                                                 0.0s 
+ => [internal] load metadata for docker.io/library/node:12-alpine                                                                                                    5.2s 
+ => [internal] load build context                                                                                                                                   39.1s 
+ => => transferring context: 596.54kB                                                                                                                               38.5s 
+ => [1/5] FROM docker.io/library/node:12-alpine@sha256:05d61228b85c54b5527e74afc54153eb3572aae005948fb068a0f4ebe01f7c1e                                              0.0s 
+ => CACHED [3/5] WORKDIR /app                                                                                                                                        0.0s 
+ => CACHED [4/5] COPY . .                                                                                                                                            0.0s 
+ => exporting to image                                                                                                                                               0.8s 
+ => => exporting layers                                                                                                                                              0.0s 
+ => => writing image sha256:6828cf48c98c3955d090b11509cccb2bc4ca23c685b108d49cc38e6a964206fb                                                                         0.1s 
+ => => naming to docker.io/library/getting-started                                                                                                                   0.1s 
+
+Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
+PS C:\Users\hp\Downloads\getting-started-master\app> docker run -dp 3000:3000 -v todo-db:/etc/todos getting-started
+PS C:\Users\hp\Downloads\getting-started-master\app> docker volume inspect todo-db
+[
+    {
+        "CreatedAt": "2022-01-08T11:19:36Z",
+        "Driver": "local",
+        "Labels": {},
+        "Mountpoint": "/var/lib/docker/volumes/todo-db/_data",
+        "Name": "todo-db",
+        "Options": {},
+        "Scope": "local"
+    }
+]
+PS C:\Users\hp\Downloads\getting-started-master\app> docker run -dp 3000:3000 -w /app -v "$(pwd):/app node:12-alpine sh -c "yarn install && yarn run dev"
+>> ^C
+PS C:\Users\hp\Downloads\getting-started-master\app> docker run -dp 3000:3000 -w /app -v "$(pwd):/app" node:12-alpine sh -c "yarn install && yarn run dev"
+Unable to find image 'node:12-alpine' locally
+59bf1c3509f3: Already exists
+f1265917d930: Already exists
+550febb8ed3d: Already exists
+Digest: sha256:05d61228b85c54b5527e74afc54153eb3572aae005948fb068a0f4ebe01f7c1e
+Status: Downloaded newer image for node:12-alpine
+a242076b393feb5e7f4b43c6b73670137759f96ed3cf1b21bde7ae8566c10380
+PS C:\Users\hp\Downloads\getting-started-master\app> docker network create todo-app
+Error response from daemon: network with name todo-app already exists
+PS C:\Users\hp\Downloads\getting-started-master\app> docker run -d --network todo-app --network-alias mysql -v todo-mysql-data:/var/lib/mysql -e MYSQL ROOT PASSWORD=secret -e MYSQL DATABASE=todos mysql:5.7
+docker: invalid reference format: repository name must be lowercase.
+See 'docker run --help'.
+PS C:\Users\hp\Downloads\getting-started-master\app> docker run -d --network todo-app --network-alias mysql -v todo-mysql-data:/var/lib/mysql -e MYSQL ROOT PASSWORD=secret -e MYSQL DATABASE=todos mysql:5.7
+docker: invalid reference format: repository name must be lowercase.
+See 'docker run --help'.
+PS C:\Users\hp\Downloads\getting-started-master\app> docker run -d --network todo-app --network-alias mysql -v todo-mysql-data:/var/lib/mysql -e MYSQL ROOT PASSWORD=secret -e MYSQL DATABASE=todos mysql:5.7
+docker: invalid reference format: repository name must be lowercase.
+See 'docker run --help'.
+PS C:\Users\hp\Downloads\getting-started-master\app> docker run -d`
+unknown shorthand flag: '`' in -`
+See 'docker run --help'.
+PS C:\Users\hp\Downloads\getting-started-master\app> docker run -d `
+>> --network todo-app --network-alias mysq `
+>> -v todo-mysql-data:/var/lib/mysql `
+>> -e MYSQL_ROOT_PASSWORD=secret `
+>> -e MYSQL_DATABASE=todos `
+>> mysql:5.7
+Unable to find image 'mysql:5.7' locally
+5.7: Pulling from library/mysql
+72a69066d2fe: Pull complete
+93619dbc5b36: Pull complete
+99da31dd6142: Pull complete
+626033c43d70: Pull complete
+37d5d7efb64e: Pull complete
+ac563158d721: Pull complete
+d2ba16033dad: Pull complete
+0ceb82207cd7: Pull complete
+37f2405cae96: Pull complete
+e2482e017e53: Pull complete
+70deed891d42: Pull complete
+Digest: sha256:f2ad209efe9c67104167fc609cca6973c8422939491c9345270175a300419f94
+Status: Downloaded newer image for mysql:5.7
+58e402ee2ae5ed446e2132410c407b037262c3a211c2278f4e6f2cab81119314
+PS C:\Users\hp\Downloads\getting-started-master\app> docker ps
+CONTAINER ID   IMAGE            COMMAND                  CREATED              STATUS              PORTS                    NAMES
+58e402ee2ae5   mysql:5.7        "docker-entrypoint.s…"   About a minute ago   Up About a minute   3306/tcp, 33060/tcp      amazing_albattani
+a242076b393f   node:12-alpine   "docker-entrypoint.s…"   14 minutes ago       Up 14 minutes       0.0.0.0:3000->3000/tcp   happy_bartik
+PS C:\Users\hp\Downloads\getting-started-master\app> docker exec -it 58e402ee2ae5 mysql -u root -p
+Enter password: 
+ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)
+PS C:\Users\hp\Downloads\getting-started-master\app> 
+PS C:\Users\hp\Downloads\getting-started-master> cd app
+PS C:\Users\hp\Downloads\getting-started-master\app> docker network create todo-app
+41d9111ef172e9b595bd6312f11553e52d3065e12ed74fa5ce1c282fc572e95d
+PS C:\Users\hp\Downloads\getting-started-master\app> 
+PS C:\Users\hp\Downloads\getting-started-master\app> docker run -d `
+>>      --network todo-app --network-alias mysql `
+>>      -v todo-mysql-data:/var/lib/mysql `
+>>      -e MYSQL_ROOT_PASSWORD=secret `
+>>      -e MYSQL_DATABASE=todos `
+>>      mysql:5.7
+Unable to find image 'mysql:5.7' locally
+5.7: Pulling from library/mysql
+72a69066d2fe: Pull complete
+93619dbc5b36: Pull complete
+99da31dd6142: Pull complete
+626033c43d70: Pull complete
+37d5d7efb64e: Pull complete
+ac563158d721: Pull complete
+d2ba16033dad: Pull complete
+0ceb82207cd7: Pull complete
+37f2405cae96: Pull complete
+e2482e017e53: Pull complete
+70deed891d42: Pull complete
+Digest: sha256:f2ad209efe9c67104167fc609cca6973c8422939491c9345270175a300419f94
+Status: Downloaded newer image for mysql:5.7
+3786cd9dc086c5fe2dbc9e40fa40736a4f7941bdd9e2d6067315f1d5329b89e6
+PS C:\Users\hp\Downloads\getting-started-master\app> docker ps
+CONTAINER ID   IMAGE       COMMAND                  CREATED          STATUS          PORTS                 NAMES
+3786cd9dc086   mysql:5.7   "docker-entrypoint.s…"   47 seconds ago   Up 29 seconds   3306/tcp, 33060/tcp   objective_cohen
+PS C:\Users\hp\Downloads\getting-started-master\app> docker exec -it 3786cd9dc086 mysql -u root -p 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+Server version: 5.7.36 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| todos              |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql>
+mysql> exit
+Bye
+PS C:\Users\hp\Downloads\getting-started-master\app> docker run -it --network todo-app nicolaka/netshoot
+Unable to find image 'nicolaka/netshoot:latest' locally
+latest: Pulling from nicolaka/netshoot
+97518928ae5f: Pull complete
+09706d35e05d: Pull complete
+4996ecc64030: Pull complete
+9a11de879aaa: Pull complete
+44f8e61e69d1: Pull complete
+dcf41a6beeb6: Pull complete
+d4d3a508f57b: Pull complete
+ca86b0e825d1: Pull complete
+7eeba344c2b1: Pull complete
+c52dc2d61c4a: Pull complete
+d04aa1a002c2: Pull complete
+7070cabd1e04: Pull complete
+Digest: sha256:d6942ec583d8e2818f5a5d7a71c303e861a70a11396ad9e9d25b355842e97589
+Status: Downloaded newer image for nicolaka/netshoot:latest
+                    dP            dP                           dP   
+                    88            88                           88
+88d888b. .d8888b. d8888P .d8888b. 88d888b. .d8888b. .d8888b. d8888P
+88'  `88 88ooood8   88   Y8ooooo. 88'  `88 88'  `88 88'  `88   88
+88    88 88.  ...   88         88 88    88 88.  .88 88.  .88   88
+dP    dP `88888P'   dP   `88888P' dP    dP `88888P' `88888P'   dP
+
+Welcome to Netshoot! (github.com/nicolaka/netshoot)
+
+
+
+
+ 9c639c305250  ~  dig mysql
+
+; <<>> DiG 9.16.22 <<>> mysql
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 48643
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;mysql.                         IN      A
+
+;; ANSWER SECTION:
+mysql.                  600     IN      A       172.18.0.2
+
+;; Query time: 980 msec
+;; SERVER: 127.0.0.11#53(127.0.0.11)
+;; WHEN: Sat Jan 08 14:48:10 UTC 2022
+;; MSG SIZE  rcvd: 44
+
+
+ 9c639c305250  ~  exit
+PS C:\Users\hp\Downloads\getting-started-master\app>          
+PS C:\Users\hp\Downloads\getting-started-master\app> docker run -dp 3000:3000 `
+>>    -w /app -v "$(pwd):/app" `
+>>    --network todo-app `
+>>    -e MYSQL_HOST=mysql `
+>>    -e MYSQL_USER=root `
+>>    -e MYSQL_PASSWORD=secret `
+>>    -e MYSQL_DB=todos `
+>>    node:12-alpine `
+>>    sh -c "yarn install && yarn run dev"
+Unable to find image 'node:12-alpine' locally
+12-alpine: Pulling from library/node
+59bf1c3509f3: Pull complete
+f1265917d930: Pull complete
+550febb8ed3d: Pull complete
+8a58962111ca: Pull complete
+Digest: sha256:05d61228b85c54b5527e74afc54153eb3572aae005948fb068a0f4ebe01f7c1e
+Status: Downloaded newer image for node:12-alpine
+aff3937d00045ccdbb376873ac6d27191571c7db2ed244fd9d3b5ec46885b82f
+PS C:\Users\hp\Downloads\getting-started-master\app> docker ps
+CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS          PORTS                    NAMES
+aff3937d0004   node:12-alpine   "docker-entrypoint.s…"   37 minutes ago   Up 36 minutes   0.0.0.0:3000->3000/tcp   serene_khayyam
+3786cd9dc086   mysql:5.7        "docker-entrypoint.s…"   58 minutes ago   Up 58 minutes   3306/tcp, 33060/tcp      objective_cohen
+PS C:\Users\hp\Downloads\getting-started-master\app> docker exec -it 3786cd9dc086 mysql -p todos        
+Enter password: 
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 5
+Server version: 5.7.36 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2021, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> select * from todo_items;
+Empty set (0.00 sec)
+
+mysql> select * from todo_items;
++--------------------------------------+-----------+-----------+
+| id                                   | name      | completed |
++--------------------------------------+-----------+-----------+
+| 99369544-f464-401a-bc03-97439d9e633e | Today     |         0 |
+| efa373be-cfe9-4cb3-bc81-81bd68ac6dae | Yesterday |         0 |
+| 234dd239-9971-4e34-9b2f-6454c1611d6c | Tommorrow |         0 |
+| e4fce986-4c31-4677-b981-bbfa0d8205de | Holiday   |         0 |
++--------------------------------------+-----------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from todo_items;
++--------------------------------------+-----------+-----------+
+| id                                   | name      | completed |
++--------------------------------------+-----------+-----------+
+| 99369544-f464-401a-bc03-97439d9e633e | Today     |         1 |
+| efa373be-cfe9-4cb3-bc81-81bd68ac6dae | Yesterday |         0 |
+| 234dd239-9971-4e34-9b2f-6454c1611d6c | Tommorrow |         1 |
+| e4fce986-4c31-4677-b981-bbfa0d8205de | Holiday   |         0 |
++--------------------------------------+-----------+-----------+
+4 rows in set (0.00 sec)
+
+mysql>
+PS C:\Users\hp\Downloads\getting-started-master\app> docker-compose version
+Docker Compose version v2.2.1
+PS C:\Users\hp\Downloads\getting-started-master\app> docker run -dp 3000:3000 `
+>>   -w /app -v "$(pwd):/app" `
+>>   --network todo-app `
+>>   -e MYSQL_HOST=mysql `
+>>   -e MYSQL_USER=root `
+>>   -e MYSQL_PASSWORD=secret `
+>>   -e MYSQL_DB=todos `
+>>   node:12-alpine `
+>>   sh -c "yarn install && yarn run dev"
+e646ae60fc410dfac5913b7fb83132373f688c37849ffb1ff6f0f79b5fa2b266
+PS C:\Users\hp\Downloads\getting-started-master\app> docker run -dp 3000:3000 `
+>>   -w /app -v "$(pwd):/app" `
+>>   --network todo-app `
+>>   -e MYSQL_HOST=mysql `
+>>   -e MYSQL_USER=root `
+>>   -e MYSQL_PASSWORD=secret `
+>>   -e MYSQL_DB=todos `
+>>   node:12-alpine `
+>>   sh -c "yarn install && yarn run dev"
+84862b35917387bb6ed200db896a157c7da457a3eb0f762451aa00bea7336ea1
+docker: Error response from daemon: driver failed programming external connectivity on endpoint interesting_carson (0fab65988ce32f001bf1b5bcc3aa4a18e1d8c010c1c80cf3c71e5223af445914): Bind for 0.0.0.0:3000 failed: port is already allocated.
+PS C:\Users\hp\Downloads\getting-started-master\app> docker run -dp 3000:3000 `
+>>   -w /app -v "$(pwd):/app" `
+>>   --network todo-app `
+>>   -e MYSQL_HOST=mysql `
+>>   -e MYSQL_USER=root `
+>>   -e MYSQL_PASSWORD=secret `
+>>   -e MYSQL_DB=todos `
+>>   node:12-alpine `
+>>   sh -c "yarn install && yarn run dev"
+4e82198a9ee9f1bc71758aa50ade896fce4afc995eb7e32e8f578e16c1e7183e
+PS C:\Users\hp\Downloads\getting-started-master\app> docker run -d `
+>>   --network todo-app --network-alias mysql `
+>>   -v todo-mysql-data:/var/lib/mysql `
+>>   -e MYSQL_ROOT_PASSWORD=secret `
+>>   -e MYSQL_DATABASE=todos `      
+>>   mysql:5.7
+b74486a6fdd4ca87ed8a517a72f4b2fee2ae43d43ab2d58ec8caf6f6fd3227c8
+PS C:\Users\hp\Downloads\getting-started-master\app> docker-compose up -d
+[+] Running 4/4
+ - Network app_default           Created                                                                                                                  1.1s
+ - Volume "app_todo-mysql-data"  Created                                                                                                                  0.1s
+ - Container app_mysql_1         Started                                                                                                                  8.1s
+ - Container app_app_1           Started                                                                   
