@@ -1,0 +1,36 @@
+version: '3.7'
+services:
+  bb-app:
+    image: 86421210/getting-started:1.0
+    ports:
+      - "8000:3000"
+
+
+PS F:\sam> docker stack rm demo
+Removing service demo_bb-app
+Removing network demo_default
+PS F:\sam> docker stack deploy -c bb-stack.yaml demo
+open bb-stack.yaml: The system cannot find the file specified.
+PS F:\sam> cd kubernetes
+PS F:\sam\kubernetes> docker stack deploy -c bb-stack.yaml demo
+Creating network demo_default
+Creating service demo_bb-app
+PS F:\sam\kubernetes> docker service ls
+ID             NAME            MODE         REPLICAS   IMAGE                          PORTS
+pgxf6w1a196a   demo_bb-app     replicated   0/1        86421210/getting-started:1.0   *:8000->3000/tcp
+d6erv84o95wo   my-prometheus   replicated   1/1        prom/prometheus:latest         *:9090->9090/tcp
+PS F:\sam\kubernetes> docker stack rm demo
+Removing service demo_bb-app
+Removing network demo_default
+PS F:\sam\kubernetes> docker stack deploy -c bb-stack.yaml demo
+Creating network demo_default
+Creating service demo_bb-app
+PS F:\sam\kubernetes> docker service ls
+ID             NAME            MODE         REPLICAS   IMAGE                          PORTS
+z4x9ewtsmyjo   demo_bb-app     replicated   0/1        86421210/getting-started:1.0   *:8000->3000/tcp
+d6erv84o95wo   my-prometheus   replicated   1/1        prom/prometheus:latest         *:9090->9090/tcp
+mdrhl6p890iv   ping_service    replicated   1/10       alpine:latest
+PS F:\sam\kubernetes>
+
+
+
